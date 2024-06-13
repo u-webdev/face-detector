@@ -15,7 +15,7 @@ function App() {
         <ImageLinkForm />
         {/* <FaceFinder /> */}
       </div>
-      <ParticlesBg type="cobweb" bg={true} />
+      <ParticlesBg type="cobweb" color="#D3D3D3" bg={true} />
     </>
   );
 }
