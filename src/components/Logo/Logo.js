@@ -5,16 +5,16 @@ import Tilt from "react-parallax-tilt";
 
 const Logo = () => {
   return (
-    <div>
-      <Tilt>
-        <div
-          className="Tilt ma4 mt0 br2 shadow-2 pa3"
-          style={{
-            height: "150px",
-            width: "150px",
-          }}
-        >
-          <img src={ai} alt="logo" style={{ paddingTop: "5px" }} />
+    <div className="ma4 mt0">
+      <Tilt
+        style={{
+          height: "150px",
+          width: "150px",
+        }}
+        className="br2 shadow-2"
+      >
+        <div className="Tilt pa3">
+          <img src={ai} alt="logo" />
         </div>
       </Tilt>
     </div>
