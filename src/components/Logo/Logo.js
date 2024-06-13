@@ -1,17 +1,20 @@
 import React from "react";
+import "./Logo.css";
+import ai from "./ai.png";
 import Tilt from "react-parallax-tilt";
 
 const Logo = () => {
   return (
-    <div className="ma4 mt0 br2 shadow-2" style={{ width: "150px" }}>
+    <div>
       <Tilt>
         <div
+          className="Tilt ma4 mt0 br2 shadow-2 pa3"
           style={{
             height: "150px",
-            backgroundColor: "darkgreen",
+            width: "150px",
           }}
         >
-          <h1>React Parallax Tilt 👀</h1>
+          <img src={ai} alt="logo" style={{ paddingTop: "5px" }} />
         </div>
       </Tilt>
     </div>
