@@ -1,6 +1,6 @@
-# Face Finder
+# Face Detector
 
-Welcome to the Face Finder repository! This project is a face recognition application built using React for the frontend and Node.js for the backend. The application integrates with the Clarifai API to detect faces in images.
+Welcome to the Face Detector repository! This project is a face recognition application built using React for the frontend and Node.js for the backend. The application integrates with the Clarifai API to detect faces in images.
 
 ## Features
 
