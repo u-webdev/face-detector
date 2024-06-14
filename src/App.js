@@ -11,7 +11,6 @@ const createClarifaiRequestOptions = (imageURL) => {
   const PAT = "3e090a0e877a4dd8a923116bd8364e26";
   const USER_ID = "p89aqyqvyfch";
   const APP_ID = "face-detection";
-  const MODEL_ID = "face-detection";
 
   const raw = JSON.stringify({
     user_app_id: {
@@ -33,7 +32,7 @@ const createClarifaiRequestOptions = (imageURL) => {
     method: "POST",
     headers: {
       Accept: "application/json",
-      Authorization: "Key " + PAT,
+      Authorization: `Key ${PAT}`,
     },
     body: raw,
   };
@@ -77,7 +76,7 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input, boxes: [] }, () => {
       fetch(
-        "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
+        `https://api.clarifai.com/v2/models/face-detection/outputs`,
         createClarifaiRequestOptions(this.state.input)
       )
         .then((response) => response.json())
