@@ -93,17 +93,23 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation />
-        <SignIn />
-        <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
-        />
-        <FaceDetection
-          boxes={this.state.boxes}
-          imageUrl={this.state.imageUrl}
-        />
+        {this.state.route === "signin" ? (
+          <SignIn />
+        ) : (
+          <div>
+            {" "}
+            <Logo />
+            <Rank />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit}
+            />
+            <FaceDetection
+              boxes={this.state.boxes}
+              imageUrl={this.state.imageUrl}
+            />
+          </div>
+        )}
         <ParticlesBg type="cobweb" color="#D3D3D3" bg={true} />
       </div>
     );
