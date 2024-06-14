@@ -51,36 +51,40 @@ class App extends Component {
     };
   }
 
+  calculateFaceLocation = (data) => {
+    const clarifaiFace =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputImage");
+    const width = Number(image.width);
+    const height = Number(image.height);
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - clarifaiFace.right_col * width,
+      bottomRow: height - clarifaiFace.bottom_row * height,
+    };
+  };
+
+  displayFaceBox = (box) => {
+    this.setState({ box: box });
+  };
+
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
   };
 
   onButtonSubmit = () => {
-    this.setState({ imageUrl: this.state.input });
-    fetch(
-      "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
-      createClarifaiRequestOptions(this.state.input)
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        const regions = result.outputs[0].data.regions;
-        regions.forEach((region) => {
-          const boundingBox = region.region_info.bounding_box;
-          const topRow = boundingBox.top_row.toFixed(3);
-          const leftCol = boundingBox.left_col.toFixed(3);
-          const bottomRow = boundingBox.bottom_row.toFixed(3);
-          const rightCol = boundingBox.right_col.toFixed(3);
-
-          region.data.concepts.forEach((concept) => {
-            const name = concept.name;
-            const value = concept.value.toFixed(4);
-            console.log(
-              `${name}: ${value} BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`
-            );
-          });
-        });
-      })
-      .catch((error) => console.log(error));
+    this.setState({ imageUrl: this.state.input }, () => {
+      fetch(
+        "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
+        createClarifaiRequestOptions(this.state.input)
+      )
+        .then((response) => response.json())
+        .then((response) =>
+          this.displayFaceBox(this.calculateFaceLocation(response))
+        )
+        .catch((error) => console.log(error));
+    });
   };
 
   render() {
@@ -93,7 +97,7 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceDetection />
+        <FaceDetection box={this.state.box} imageUrl={this.state.imageUrl} />
         <ParticlesBg type="cobweb" color="#D3D3D3" bg={true} />
       </div>
     );
