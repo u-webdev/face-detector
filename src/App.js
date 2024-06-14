@@ -47,26 +47,27 @@ class App extends Component {
     this.state = {
       input: "",
       imageUrl: "",
-      box: {},
+      boxes: [],
     };
   }
 
-  calculateFaceLocation = (data) => {
-    const clarifaiFace =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
+  calculateFaceLocations = (data) => {
     const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - clarifaiFace.right_col * width,
-      bottomRow: height - clarifaiFace.bottom_row * height,
-    };
+    return data.outputs[0].data.regions.map((region) => {
+      const clarifaiFace = region.region_info.bounding_box;
+      return {
+        leftCol: clarifaiFace.left_col * width,
+        topRow: clarifaiFace.top_row * height,
+        rightCol: width - clarifaiFace.right_col * width,
+        bottomRow: height - clarifaiFace.bottom_row * height,
+      };
+    });
   };
 
-  displayFaceBox = (box) => {
-    this.setState({ box: box });
+  displayFaceBoxes = (boxes) => {
+    this.setState({ boxes: boxes });
   };
 
   onInputChange = (event) => {
@@ -81,7 +82,7 @@ class App extends Component {
       )
         .then((response) => response.json())
         .then((response) =>
-          this.displayFaceBox(this.calculateFaceLocation(response))
+          this.displayFaceBoxes(this.calculateFaceLocations(response))
         )
         .catch((error) => console.log(error));
     });
@@ -97,7 +98,10 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceDetection box={this.state.box} imageUrl={this.state.imageUrl} />
+        <FaceDetection
+          boxes={this.state.boxes}
+          imageUrl={this.state.imageUrl}
+        />
         <ParticlesBg type="cobweb" color="#D3D3D3" bg={true} />
       </div>
     );
