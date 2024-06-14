@@ -5,6 +5,7 @@ import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceDetection from "./components/FaceDetection/FaceDetection";
 import SignIn from "./components/SignIn/SignIn";
+import Register from "./components/Register/Register";
 import ParticlesBg from "particles-bg";
 import { Component } from "react";
 
@@ -97,11 +98,8 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation onRouteChange={this.onRouteChange} />
-        {this.state.route === "signin" ? (
-          <SignIn onRouteChange={this.onRouteChange} />
-        ) : (
+        {this.state.route === "home" ? (
           <div>
-            {" "}
             <Logo />
             <Rank />
             <ImageLinkForm
@@ -113,6 +111,10 @@ class App extends Component {
               imageUrl={this.state.imageUrl}
             />
           </div>
+        ) : this.state.route === "signin" ? (
+          <SignIn onRouteChange={this.onRouteChange} />
+        ) : (
+          <Register onRouteChange={this.onRouteChange} />
         )}
         <ParticlesBg type="cobweb" color="#D3D3D3" bg={true} />
       </div>
