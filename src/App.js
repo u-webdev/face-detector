@@ -4,6 +4,7 @@ import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceDetection from "./components/FaceDetection/FaceDetection";
+import SignIn from "./components/SignIn/SignIn";
 import ParticlesBg from "particles-bg";
 import { Component } from "react";
 
@@ -47,6 +48,7 @@ class App extends Component {
       input: "",
       imageUrl: "",
       boxes: [],
+      route: "signin",
     };
   }
 
@@ -91,6 +93,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation />
+        <SignIn />
         <Logo />
         <Rank />
         <ImageLinkForm
