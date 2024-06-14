@@ -16,13 +16,21 @@ class App extends Component {
   onInputChange = (event) => {
     console.log(event.target.value);
   };
+
+  onButtonSubmit = () => {
+    console.log("click");
+  };
+
   render() {
     return (
       <div className="App">
         <Navigation />
         <Logo />
         <Rank />
-        <ImageLinkForm onInputChange={this.onInputChange} />
+        <ImageLinkForm
+          onInputChange={this.onInputChange}
+          onButtonSubmit={this.onButtonSubmit}
+        />
         {/* <FaceFinder /> */}
         <ParticlesBg type="cobweb" color="#D3D3D3" bg={true} />
       </div>
