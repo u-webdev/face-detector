@@ -7,13 +7,22 @@ import ParticlesBg from "particles-bg";
 import { Component } from "react";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      input: "",
+    };
+  }
+  onInputChange = (event) => {
+    console.log(event);
+  };
   render() {
     return (
       <div className="App">
         <Navigation />
         <Logo />
         <Rank />
-        <ImageLinkForm />
+        <ImageLinkForm onInputChange={this.onInputChange} />
         {/* <FaceFinder /> */}
         <ParticlesBg type="cobweb" color="#D3D3D3" bg={true} />
       </div>
