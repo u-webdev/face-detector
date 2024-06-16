@@ -61,6 +61,18 @@ class App extends Component {
     };
   }
 
+  loadUser = (data) => {
+    this.state({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined,
+      },
+    });
+  };
+
   calculateFaceLocations = (data) => {
     const image = document.getElementById("inputImage");
     const width = Number(image.width);
