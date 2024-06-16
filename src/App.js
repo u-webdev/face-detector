@@ -103,9 +103,27 @@ class App extends Component {
         createClarifaiRequestOptions(this.state.input)
       )
         .then((response) => response.json())
-        .then((response) =>
-          this.displayFaceBoxes(this.calculateFaceLocations(response))
-        )
+        .then((response) => {
+          if (response.outputs) {
+            this.displayFaceBoxes(this.calculateFaceLocations(response));
+            return response;
+          }
+          throw new Error("Failed to fetch response");
+        })
+        .then((response) => {
+          fetch("http://localhost:3000/image", {
+            method: "put",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              id: this.state.user.id,
+            }),
+          })
+            .then((response) => response.json())
+            .then((count) => {
+              this.setState(Object.assign(this.state.user, { entries: count }));
+            })
+            .catch(console.log);
+        })
         .catch((error) => console.log(error));
     });
   };
