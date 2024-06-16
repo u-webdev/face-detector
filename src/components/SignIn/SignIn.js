@@ -25,8 +25,13 @@ class SignIn extends React.Component {
         email: this.state.signInEmail,
         password: this.state.signInPassword,
       }),
-    });
-    this.props.onRouteChange("home");
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === "success") {
+          this.props.onRouteChange("home");
+        }
+      });
   };
 
   render() {
