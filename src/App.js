@@ -96,7 +96,7 @@ class App extends Component {
     this.setState({ input: event.target.value });
   };
 
-  onButtonSubmit = () => {
+  onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input, boxes: [] }, () => {
       fetch(
         `https://api.clarifai.com/v2/models/face-detection/outputs`,
@@ -136,7 +136,7 @@ class App extends Component {
             />
             <ImageLinkForm
               onInputChange={this.onInputChange}
-              onButtonSubmit={this.onButtonSubmit}
+              onPictureSubmit={this.onPictureSubmit}
             />
             <FaceDetection boxes={boxes} imageUrl={imageUrl} />
           </div>
