@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   loadUser = (data) => {
-    this.state({
+    this.setState({
       user: {
         id: data.id,
         name: data.name,
@@ -140,7 +140,10 @@ class App extends Component {
         ) : this.state.route === "signin" ? (
           <SignIn onRouteChange={this.onRouteChange} />
         ) : (
-          <Register onRouteChange={this.onRouteChange} />
+          <Register
+            loadUser={this.loadUser}
+            onRouteChange={this.onRouteChange}
+          />
         )}
         <ParticlesBg type="cobweb" color="#D3D3D3" bg={true} />
       </div>
