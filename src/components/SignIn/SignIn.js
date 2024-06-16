@@ -17,6 +17,10 @@ class SignIn extends React.Component {
     this.setState({ signInPassword: event.target.value });
   };
 
+  onSubmitSignin = () => {
+    console.log(this.state);
+  };
+
   render() {
     const { onRouteChange } = this.props;
     return (
