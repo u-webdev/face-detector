@@ -9,39 +9,6 @@ import Register from "./components/Register/Register";
 import ParticlesBg from "particles-bg";
 import { Component } from "react";
 
-const createClarifaiRequestOptions = (imageURL) => {
-  const PAT = "3e090a0e877a4dd8a923116bd8364e26";
-  const USER_ID = "p89aqyqvyfch";
-  const APP_ID = "face-detection";
-
-  const raw = JSON.stringify({
-    user_app_id: {
-      user_id: USER_ID,
-      app_id: APP_ID,
-    },
-    inputs: [
-      {
-        data: {
-          image: {
-            url: imageURL,
-          },
-        },
-      },
-    ],
-  });
-
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      Authorization: `Key ${PAT}`,
-    },
-    body: raw,
-  };
-
-  return requestOptions;
-};
-
 const initialState = {
   input: "",
   imageUrl: "",
@@ -100,10 +67,13 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input, boxes: [] }, () => {
-      fetch(
-        `https://api.clarifai.com/v2/models/face-detection/outputs`,
-        createClarifaiRequestOptions(this.state.input)
-      )
+      fetch("http://localhost:3000/imageurl", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          input: this.state.input,
+        }),
+      })
         .then((response) => response.json())
         .then((response) => {
           if (response.outputs) {
@@ -160,7 +130,7 @@ class App extends Component {
             />
             <FaceDetection boxes={boxes} imageUrl={imageUrl} />
           </div>
-        ) : this.state.route === "signin" ? (
+        ) : route === "signin" ? (
           <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
         ) : (
           <Register
