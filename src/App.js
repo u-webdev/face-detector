@@ -67,13 +67,16 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input, boxes: [] }, () => {
-      fetch("http://localhost:3000/imageurl", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          input: this.state.input,
-        }),
-      })
+      fetch(
+        "https://ep-bold-dew-a2vvhuof-pooler.eu-central-1.aws.neon.tech/imageurl",
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            input: this.state.input,
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((response) => {
           if (response.outputs) {
@@ -83,13 +86,16 @@ class App extends Component {
           throw new Error("Failed to fetch response");
         })
         .then((response) => {
-          fetch("http://localhost:3000/image", {
-            method: "put",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              id: this.state.user.id,
-            }),
-          })
+          fetch(
+            "https://ep-bold-dew-a2vvhuof-pooler.eu-central-1.aws.neon.tech/image",
+            {
+              method: "put",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                id: this.state.user.id,
+              }),
+            }
+          )
             .then((response) => response.json())
             .then((count) => {
               this.setState(Object.assign(this.state.user, { entries: count }));
