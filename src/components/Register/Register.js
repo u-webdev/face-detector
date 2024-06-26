@@ -23,7 +23,7 @@ class Register extends React.Component {
   };
 
   onSubmitSignin = () => {
-    fetch("https://face-detector-api-chi.vercel.app/register", {
+    fetch("https://face-detector-api-ten.vercel.app/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
