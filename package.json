@@ -20,9 +20,6 @@
     "resolve-url-loader": "^5.0.0",
     "css-select": "^4.1.3"
   },
-  "resolutions": {
-    "rollup": "3.29.5"
-  },
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
     "start": "react-scripts start",
